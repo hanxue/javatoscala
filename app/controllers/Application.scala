@@ -43,4 +43,26 @@ object Application extends Controller {
     )
   }
 
+  // Older method of HTML file upload
+  /*
+  def upload = Action (parse.multipartFormData) { request =>
+    request.body.file("uploadFile").map { uploaded =>
+      val filename = uploaded.filename
+      val contentType = uploaded.contentType
+      uploaded.ref.moveTo(new java.util.File("/tmp/uploaded"))
+      Ok("File uploaded")
+    }.getOrElse {
+      Redirect(routes.Application.index).flashing(
+        "error" -> "Missing file"
+        )
+      }
+    }
+    */
+
+    // Using AJAX for upload
+    def upload = Action(parse.temporaryFile) { request =>
+      request.body.moveTo(new java.io.File("/tmp/uploaded"))
+      Ok("File uploaded")
+    }
+
 }

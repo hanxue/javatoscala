@@ -41,6 +41,11 @@
     </div>
   }
 
+  @form(action = routes.Application.upload, 'enctype -> "multipart/form-data") {
+    <input type="file" name="uploadFile" />
+    <input type="submit" class="btn btn-primary btn-lg btn-block" value="Upload">
+  }
+  
   @form(routes.Application.convert, args = 'id -> "convert-form") {
     <textarea name="original" class="form-control" rows="10">@convertForm("original").value.getOrElse("")</textarea>
     <div id="original"></div>
